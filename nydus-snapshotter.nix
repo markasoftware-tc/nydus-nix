@@ -1,9 +1,10 @@
-{ docker, fetchFromGitHub, buildGoModule }:
+{ fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "nydus-snapshotter";
   version = "v0.15.4";
-  nativeCheckInputs = [ docker ];
+  # weird docker crap
+  doCheck = false;
   src = fetchFromGitHub {
     owner = "containerd";
     repo = pname;
