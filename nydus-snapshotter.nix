@@ -1,4 +1,4 @@
-{ makeBinaryWrapper, fetchFromGitHub, buildGoModule }:
+{ makeBinaryWrapper, lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "nydus-snapshotter";
