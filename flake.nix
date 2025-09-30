@@ -10,7 +10,7 @@
       packages = eachSupportedSystem (system: pkgs: rec {
         nydus = pkgs.callPackage (import ./nydus.nix) {};
         nydusify = pkgs.callPackage (import ./nydusify.nix) { inherit nydus; };
-        nydus-snapshotter = pkgs.callPackage (import ./nydus-snapshotter.nix) {};
+        nydus-snapshotter = pkgs.callPackage (import ./nydus-snapshotter.nix) { inherit nydus; };
       });
 
       apps = eachSupportedSystem (system: pkgs: {
