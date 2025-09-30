@@ -3,7 +3,7 @@
 buildGoModule rec {
   pname = "nydus-snapshotter";
   version = "v0.15.4";
-  checkInputs = [ docker ];
+  nativeCheckInputs = [ docker ];
   src = fetchFromGitHub {
     owner = "containerd";
     repo = pname;
