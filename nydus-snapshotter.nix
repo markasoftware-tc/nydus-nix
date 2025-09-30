@@ -14,6 +14,6 @@ buildGoModule rec {
   };
   vendorHash = "sha256-SoZ7yul64Y1a9FFOnrW7V91IGdd021LzFudiFwhVxwA=";
   postInstall = ''
-    makeWrapper $out/bin/containerd-nydus-grpc $out/bin/containerd-nydus-grpc --prefix PATH : ${lib.makeBinPath [ nydus ] }
+    makeWrapper $out/bin/containerd-nydus-grpc --prefix PATH : ${lib.makeBinPath [ nydus ] }
   '';
 }
