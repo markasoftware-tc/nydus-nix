@@ -1,9 +1,10 @@
-{ fetchFromGitHub, buildGoModule, runCommand }:
+{ lib, fetchFromGitHub, buildGoModule, runCommand, makeBinaryWrapper, nydus }:
 
 # to update: Bump the version, then wait for the first hash failure, replace that in fetchFromGitHub, then run again, and put the hash in cargoHash
 let nydusifyRawPackage = buildGoModule rec {
       pname = "nydusify";
       version = "2.3.7";
+      nativeBuildInputs = [ makeBinaryWrapper ];
       src = fetchFromGitHub {
         owner = "dragonflyoss";
         repo = "nydus";
@@ -11,6 +12,7 @@ let nydusifyRawPackage = buildGoModule rec {
         hash = "sha256-dVPfxsM/mduCopc2t+60+MDO98DRYvpNB+9/gUoXTSc=";
       } + "/contrib/nydusify";
       vendorHash = "sha256-SmDOmCMinTg72P8n4c1HnwKpt/CVeIlqdFcp5LHm2tA=";
+      postFixup = "makeWrapper $out/bin/nydusify $out/bin/nydusify --prefix PATH : ${lib.makeBinPath [ nydus ] }";
     }; in
 runCommand "nydusify" {} ''
   mkdir -p $out/bin

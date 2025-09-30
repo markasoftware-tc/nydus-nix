@@ -7,9 +7,9 @@
     let supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
         eachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f system nixpkgs.legacyPackages.${system});
     in {
-      packages = eachSupportedSystem (system: pkgs: {
+      packages = eachSupportedSystem (system: pkgs: rec {
         nydus = pkgs.callPackage (import ./nydus.nix) {};
-        nydusify = pkgs.callPackage (import ./nydusify.nix) {};
+        nydusify = pkgs.callPackage (import ./nydusify.nix) { inherit nydus; };
         nydus-snapshotter = pkgs.callPackage (import ./nydus-snapshotter.nix) {};
       });
 
