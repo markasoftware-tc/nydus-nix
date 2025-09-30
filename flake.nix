@@ -10,10 +10,12 @@
       packages = eachSupportedSystem (system: pkgs: {
         nydus = pkgs.callPackage (import ./nydus.nix) {};
         nydusify = pkgs.callPackage (import ./nydusify.nix) {};
+        nydus-snapshotter = pkgs.callPackage (import ./nydus-snapshotter.nix) {};
       });
 
       apps = eachSupportedSystem (system: pkgs: {
-        nydus-image = "${self.packages.${system}.nydus}/bin/nydus-image";
+        nydus-image = { type = "app"; program = "${self.packages.${system}.nydus}/bin/nydus-image"; };
+        containerd-nydus-grpc = { type = "app"; program = "${self.packages.${system}.nydus-snapshotter}/bin/containerd-nydus-grpc"; };
       });
     };
 }
