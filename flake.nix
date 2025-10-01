@@ -17,5 +17,12 @@
         nydus-image = { type = "app"; program = "${self.packages.${system}.nydus}/bin/nydus-image"; };
         containerd-nydus-grpc = { type = "app"; program = "${self.packages.${system}.nydus-snapshotter}/bin/containerd-nydus-grpc"; };
       });
+
+      devShells = eachSupportedSystem (system: pkgs: {
+        default = pkgs.mkShell {
+          inputsFrom = builtins.attrValues self.packages.${system};
+          nativeBuildInputs = [ pkgs.rust-analyzer pkgs.gopls pkgs.clippy pkgs.rustfmt ];
+        };
+      });
     };
 }
