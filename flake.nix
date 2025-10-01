@@ -15,6 +15,8 @@
 
       apps = eachSupportedSystem (system: pkgs: {
         nydus-image = { type = "app"; program = "${self.packages.${system}.nydus}/bin/nydus-image"; };
+        nydusd = { type = "app"; program = "${self.packages.${system}.nydus}/bin/nydusd"; };
+        nydusctl = { type = "app"; program = "${self.packages.${system}.nydus}/bin/nydusctl"; };
         containerd-nydus-grpc = { type = "app"; program = "${self.packages.${system}.nydus-snapshotter}/bin/containerd-nydus-grpc"; };
       });
 
